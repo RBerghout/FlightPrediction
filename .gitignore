@@ -5,6 +5,13 @@
 LocalPredict (*
 Prediction (*
 
+saved/*
+
+#################
+## Pycharm
+#################
+
+.idea
 
 #################
 ## Eclipse
@@ -170,3 +177,8 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
