@@ -91,6 +91,7 @@ def getData(launchtime=None,wxstation="VEL",source="GFS",timeout=10,hourdifferen
     #print data
     return data
 
+#Seems to Calculate the projected ascending flight track
 def getDataFromFlightPath(flighttrack,ascentrate=1045, burstaltitude = 98000):
     """Parse a flight track for wind data"""
     flightup = []
@@ -216,6 +217,7 @@ def parse_wind_baltrak(data):
         parsed_data.append((bycolumn[1],int(float(bycolumn[4])),float(bycolumn[5])*1.94384449))
     return parsed_data    
 
+#Main Algorithym to create a potential flight track for the balloon. 
 def makeTrack(atmosphere,launchsite,ascentrate,descentrate,burstaltitude,direction="up",criticalpoints=False):
     """Simulate a balloon track with given atmospheric wind data"""
     #Convert atmospheric wind data into feet,degrees,and whatever knots *101.3 is
@@ -371,7 +373,12 @@ def main(launchtime=None,launchsite=(40.191903,-110.38099,5826),ascentrate=1045,
         saveDataToFile(data=data)
     atmosphere = parse_wind(data)
     if messages: print "Simulating Balloon Flight"
+	
+	# Add a loop that calls "makeTrack" multiple times
+	# May also be useful to add a function that gets the current location/relavent info from 
+	#	the balloon to be able to update the coordinates
     track = makeTrack(atmosphere,launchsite,ascentrate,descentrate,burstaltitude,direction=direction)
+
     if messages: print "\t...Done"
     else: return track
     landing,bearing = findLanding(track,launchsite)

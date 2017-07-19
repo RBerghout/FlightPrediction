@@ -1,3 +1,25 @@
+#--------------------------------------------------
+# File Name: predict.py 
+# Description: python definitions and classes to
+#	calculate the predicted location of a balloon. 
+#
+# Author: 
+# Contact Info:
+# Revision: First Light
+# Date: 
+#--------------------------------------------------
+# Author: Rachel Berghout
+# Contact Info: rachelberghout@mail.weber.edu
+# Revision: #1 
+#	Added Comments and file information - Jul 17, 2017
+#
+# Notes on entire project revision:
+#	- will modify algorithm to make continuous predictions until flight is complete
+#	- will predict a more accurate landing circle (less than a radius of 10 miles)
+#	- will update landing trajectory as new data comes in
+#	- will use multiple weather models to start the prediction (currently just using models)
+#--------------------------------------------------
+
 import requests
 import pygrib
 import datetime
@@ -224,6 +246,7 @@ class WindModel(object):
 
 DT = 1.0/60.0 # 1 second
 
+# Method to calculate the projected path of a balloon
 def euler(model, start_point, asc_rate, des_rate, launch_alt, burst_alt):
     """Perform an Euler integration. Start point in degrees and arguments in feet and feet/minute"""
     trackup = []
